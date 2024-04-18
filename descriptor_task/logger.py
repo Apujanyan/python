@@ -43,7 +43,7 @@ class Logger:
         print(f"{Logger.__date} {Logger.__current_time} | ERROR | {text}")
 
     @staticmethod
-    def _create_log_directory():
+    def _create_log_directory() -> None:
         """Creates new directory for logs if it doesn't exist"""
         path = os.getcwd() + "/logs"
         if not os.path.isdir(path):

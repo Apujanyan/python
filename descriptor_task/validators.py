@@ -4,15 +4,15 @@ import re
 
 class AgeValue:
     """AgeValue descriptor for age validation"""
-    def __set_name__(self, owner, property_name):
+    def __set_name__(self, owner, property_name) -> None:
         self.property_name = property_name
 
-    def __get__(self, instance, owner):
+    def __get__(self, instance, owner) -> int:
         if instance is None:
             return self
         return getattr(instance, f'__{self.property_name}', None)
 
-    def __set__(self, instance, value):
+    def __set__(self, instance, value: int) -> None:
         if not isinstance(value, int):
             raise TypeError(
                 f"The {self.property_name} must be an integer type!"
@@ -26,15 +26,15 @@ class AgeValue:
 
 class NameValue:
     """NameValue descriptor for first and last name validation"""
-    def __set_name__(self, owner, property_name):
+    def __set_name__(self, owner, property_name) -> None:
         self.property_name = property_name
 
-    def __get__(self, instance, owner):
+    def __get__(self, instance, owner) -> str:
         if instance is None:
             return self
         return getattr(instance, f'__{self.property_name}', None)
     
-    def __set__(self, instance, value):
+    def __set__(self, instance, value: str) -> None:
         if not isinstance(value, str):
             raise TypeError(f"The {self.property_name} must be a string type!")
         if not value.isalpha():
@@ -46,15 +46,15 @@ class NameValue:
 
 class EmailValue:
     """EmailValue descriptor for email validation"""
-    def __set_name__(self, owner, property_name):
+    def __set_name__(self, owner, property_name) -> None:
         self.property_name = property_name
 
-    def __get__(self, instance, owner):
+    def __get__(self, instance, owner) -> str:
         if instance is None:
             return self
         return getattr(instance, f'__{self.property_name}', None)
     
-    def __set__(self, instance, value):
+    def __set__(self, instance, value: str) -> None:
         if not isinstance(value, str):
             raise TypeError(
                 f"The {self.property_name} must be a string type!"
@@ -67,15 +67,15 @@ class EmailValue:
 
 class PasswordValue:
     """PasswordValue descriptor for password validation"""
-    def __set_name__(self, owner, property_name):
+    def __set_name__(self, owner, property_name) -> None:
         self.property_name = property_name
 
-    def __get__(self, instance, owner):
+    def __get__(self, instance, owner) -> str:
         if instance is None:
             return self
         return getattr(instance, f'__{self.property_name}', None)
 
-    def __set__(self, instance, value):
+    def __set__(self, instance, value: str) -> None:
         if not isinstance(value, str):
             raise TypeError(
                 f"The {self.property_name} must be a string type!"

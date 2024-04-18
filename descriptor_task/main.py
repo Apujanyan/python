@@ -35,12 +35,11 @@ def main() -> None:
     )
 
     print(Bob.age)
-
-    Logger.success("fsd")
-    Logger.success("666")
-    Logger.error('error')
-    Logger.add()
+    Logger.success("Retrieving Bob's age")
+    print(Bob.password)
+    Logger.info("Retrieving Bob's account password hash")
     print(Logger.logs())
+    Logger.add()
 
 
 if __name__ == '__main__':
