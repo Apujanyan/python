@@ -1,4 +1,4 @@
-"""Custom python MRO implementation"""
+"""Custom python MRO"""
 
 
 def merge(*mros):

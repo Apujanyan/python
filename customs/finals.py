@@ -1,14 +1,17 @@
-class CustomFinalInh(type):
+"""Custom final metaclasses"""
+
+
+class FinalInh(type):
     """Metaclass for preventing inheritance(runtime)"""
 
     def __new__(mcls, name, bases, cls_dict, **kwargs):
         for base in bases:
-            if isinstance(base, CustomFinalInh):
+            if isinstance(base, FinalInh):
                 raise TypeError(f'Cannot inherit from class {name}!')
         return super().__new__(mcls, name, bases, cls_dict)
 
 
-class CustomFinalOvr(type):
+class FinalOvr(type):
     """Metaclass for preventing attribute overriding(runtime)"""
 
     def __new__(mcls, name, bases, cls_dict, **kwargs):
