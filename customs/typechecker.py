@@ -1,24 +1,28 @@
-from functools import wraps
-from typing import Callable
+"""Typechecker decorator for class __init__ type checking"""
 
-
-def typechecker(fn: Callable):
-    @wraps(fn)
+def typechecker(cls):
     def wrapper(*args, **kwargs):
-        annotations = fn.__annotations__
-        for arg_name, arg_value in zip(fn.__code__.co_varnames, args):
-            if arg_name in annotations:
-                if not isinstance(arg_value, annotations[arg_name]):
-                    raise TypeError(f"Argument {arg_name} must be of type "
-                                    f"{annotations[arg_name]}!")
+        init = cls.__init__
+        types = init.__annotations__
+        var_names = init.__code__.co_varnames[1::]
+
+        # For positional arguments
+        for arg_value, arg_name in zip(args, var_names):
+            if arg_name in types:
+                if not isinstance(arg_value, types[arg_name]):
+                    raise TypeError(f"Expected {types[arg_name]}, "
+                                    f"got {type(arg_value)}!")
+
+        # For keyword arguments
         for arg_name, arg_value in kwargs.items():
-            if arg_name in annotations:
-                if not isinstance(arg_value, annotations[arg_name]):
-                    raise TypeError(f"Argument {arg_name} must be of type "
-                                    f"{annotations[arg_name]}!")
-        result = fn(*args, **kwargs)
-        if 'return' in annotations.keys():
-            if not isinstance(result, type(annotations['return'])):
-                raise TypeError(f"Return type must be of type "
-                                f"{annotations['return']}!")
+            if arg_name in types:
+                if not isinstance(arg_value, types[arg_name]):
+                    raise TypeError(f"Expected {types[arg_name]}, "
+                                    f"got {type(arg_value)}!")
+        return cls(*args, **kwargs)
     return wrapper
+
+
+
+
+
