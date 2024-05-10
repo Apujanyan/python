@@ -1,61 +1,82 @@
-"""Abstract Factory design pattern example"""
+"""Abstract factory example"""
 
 from abc import ABC, abstractmethod
 
 
-class Car(ABC):
+class Shoes(ABC):
     @abstractmethod
-    def start_engine(self) -> None:
+    def get_price(self) -> None:
         ...
 
 
-class CarShop(ABC):
-    @staticmethod
+class Hat(ABC):
     @abstractmethod
-    def buy_car(car_name: str) -> Car:
+    def get_price(self) -> None:
         ...
 
 
-class ElectricCar(Car):
-    def __init__(self, name: str) -> None:
-        self.name = name
-
-    def start_engine(self) -> None:
-        print(f'Starting engine of {self.name}!')
+class SportShoes(Shoes):
+    def get_price(self) -> None:
+        print(f'The price of {self} is 50$.')
 
 
-class GasolineCar(Car):
-    def __init__(self, name:str) -> None:
-        self.name = name
-
-    def start_engine(self) -> None:
-        print(f'Starting engine of {self.name}!')
+class ClassicShoes(Shoes):
+    def get_price(self) -> None:
+        print(f'The price of {self} is 100$.')
 
 
-class ElectricCarShop(CarShop):
-    @staticmethod
-    def buy_car(car_name: str) -> ElectricCar:
-        print(f'Car {car_name} was successfully bought!')
-        return ElectricCar(car_name)
+class SportHat(Hat):
+    def get_price(self) -> None:
+        print(f'The price of {self} is 10$.')
 
 
-class GasolineCarShop(CarShop):
-    @staticmethod
-    def buy_car(car_name: str) -> GasolineCar:
-        print(f'Car {car_name} was successfully bought!')
-        return GasolineCar(car_name)
+class ClassicHat(Hat):
+    def get_price(self) -> None:
+        print(f'The price of {self} is 20$.')
+
+
+class ClothFactory(ABC):
+    @abstractmethod
+    def create_shoes(self) -> Shoes:
+        ...
+
+    @abstractmethod
+    def create_hat(self) -> Hat:
+        ...
+
+
+class SportClothFactory(ClothFactory):
+    def create_shoes(self) -> SportShoes:
+        return SportShoes()
+
+    def create_hat(self) -> SportHat:
+        return SportHat()
+
+
+class ClassicClothFactory(ClothFactory):
+    def create_shoes(self) -> ClassicShoes:
+        return ClassicShoes()
+
+    def create_hat(self) -> ClassicHat:
+        return ClassicHat()
 
 
 def main() -> None:
-    el_car = ElectricCarShop.buy_car('El_Car')
-    gas_car = GasolineCarShop.buy_car('Gas_Car')
-    el_car.start_engine()
-    gas_car.start_engine()
+    sport_factory = SportClothFactory()
+    classic_factory = ClassicClothFactory()
+
+    sport_shoes = sport_factory.create_shoes()
+    sport_hat = sport_factory.create_hat()
+
+    classic_shoes = classic_factory.create_shoes()
+    classic_hat = classic_factory.create_hat()
+
+    sport_shoes.get_price()
+    sport_hat.get_price()
+
+    classic_shoes.get_price()
+    classic_hat.get_price()
 
 
 if __name__ == '__main__':
     main()
-
-
-
-
