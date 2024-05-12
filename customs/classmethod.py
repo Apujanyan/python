@@ -1,4 +1,4 @@
-"""Custom classmethod descriptor"""
+"""Custom classmethod descriptor. """
 
 
 class Classmethod:
@@ -6,6 +6,6 @@ class Classmethod:
         self.__fn = fn
 
     def __get__(self, instance, owner):
-        def class_method(*args, **kwargs):
+        def wrapper(*args, **kwargs):
             return self.__fn(owner, *args, **kwargs)
-        return class_method
+        return wrapper
