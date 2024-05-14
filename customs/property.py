@@ -1,4 +1,4 @@
-"""Custom property descriptor"""
+"""Custom property descriptor. """
 
 
 class Property:

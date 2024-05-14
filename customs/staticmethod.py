@@ -1,4 +1,4 @@
-"""Custom staticmethod descriptor"""
+"""Custom staticmethod descriptor. """
 
 
 class Staticmethod:
