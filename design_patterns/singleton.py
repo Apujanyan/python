@@ -1,21 +1,28 @@
-"""Singleton design pattern example"""
+"""
+Singleton
+
+Singleton is a creational design pattern that lets you ensure
+that a class has only one instance, while providing a global
+access point to this instance.
+"""
 
 
-class Singleton:
+class Singleton(type):
     __instance = None
 
-    def __new__(cls):
+    def __call__(cls, *args, **kwargs):
         if cls.__instance is None:
-            cls.__instance = super(Singleton, cls).__new__(cls)
+            cls.__instance = super().__call__(*args, **kwargs)
         return cls.__instance
 
 
-def main() -> None:
-    s1 = Singleton()
-    s2 = Singleton()
-    print(f's1_id: {hex(id(s1))}')
-    print(f's2_id: {hex(id(s2))}')
+class DataBase(metaclass=Singleton):
+    ...
 
 
-if __name__ == '__main__':
-    main()
+d1 = DataBase()
+d2 = DataBase()
+
+print(d1 is d2)
+
+
