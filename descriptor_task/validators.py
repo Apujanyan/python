@@ -1,9 +1,12 @@
-"""Validators module for validation User class attributes"""
 import re
 
 
+"""Validators module for validation User class attributes. """
+
+
 class AgeValue:
-    """AgeValue descriptor for age validation"""
+    """AgeValue descriptor for age validation. """
+
     def __set_name__(self, owner, property_name) -> None:
         self.property_name = property_name
 
@@ -25,7 +28,8 @@ class AgeValue:
 
 
 class NameValue:
-    """NameValue descriptor for first and last name validation"""
+    """NameValue descriptor for first and last name validation. """
+
     def __set_name__(self, owner, property_name) -> None:
         self.property_name = property_name
 
@@ -45,7 +49,8 @@ class NameValue:
 
 
 class EmailValue:
-    """EmailValue descriptor for email validation"""
+    """EmailValue descriptor for email validation. """
+
     def __set_name__(self, owner, property_name) -> None:
         self.property_name = property_name
 
@@ -66,7 +71,8 @@ class EmailValue:
 
 
 class PasswordValue:
-    """PasswordValue descriptor for password validation"""
+    """PasswordValue descriptor for password validation. """
+
     def __set_name__(self, owner, property_name) -> None:
         self.property_name = property_name
 

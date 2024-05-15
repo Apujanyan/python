@@ -26,7 +26,7 @@ class User:
 
 
 def main() -> None:
-    Bob = User(
+    bob = User(
         first_name="Bob",
         last_name="Smith",
         email="bob.smith@email.com",
@@ -34,9 +34,9 @@ def main() -> None:
         password='Bob_Smith35?@',
     )
 
-    print(Bob.age)
+    print(bob.age)
     Logger.success("Retrieving Bob's age")
-    print(Bob.password)
+    print(bob.password)
     Logger.info("Retrieving Bob's account password hash")
     print(Logger.logs())
     Logger.add()
