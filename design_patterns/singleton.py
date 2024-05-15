@@ -1,3 +1,6 @@
+from threading import Lock, Thread
+
+
 """
 Singleton
 
@@ -8,21 +11,26 @@ access point to this instance.
 
 
 class Singleton(type):
-    __instance = None
+    """Classic Singleton metaclass. """
+
+    _instances: dict = {}
 
     def __call__(cls, *args, **kwargs):
-        if cls.__instance is None:
-            cls.__instance = super().__call__(*args, **kwargs)
-        return cls.__instance
+        if cls not in cls._instances:
+            instance = super().__call__(*args, **kwargs)
+            cls._instances[cls] = instance
+        return cls._instances[cls]
 
 
-class DataBase(metaclass=Singleton):
-    ...
+class SingletonThreadSafe(type):
+    """Thread-safe Singleton metaclass. """
 
+    _instances: dict = {}
+    _lock: Lock = Lock()
 
-d1 = DataBase()
-d2 = DataBase()
-
-print(d1 is d2)
-
-
+    def __call__(cls, *args, **kwargs):
+        with cls._lock:
+            if cls not in cls._instances:
+                instance = super().__call__(*args, **kwargs)
+                cls._instances[cls] = instance
+        return cls._instances[cls]

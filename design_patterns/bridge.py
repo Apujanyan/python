@@ -1,3 +1,6 @@
+from abc import ABC, abstractmethod
+
+
 """
 Bridge
 
@@ -6,8 +9,6 @@ class or a set of closely related classes into two separate
 hierarchies—abstraction and implementation—which can be
 developed independently of each other.
 """
-
-from abc import ABC, abstractmethod
 
 
 class Window(ABC):
