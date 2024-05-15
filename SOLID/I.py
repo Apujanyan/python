@@ -1,11 +1,12 @@
+from abc import ABC, abstractmethod
+
+
 """
 Interface Segregation Principle
 
 Clients shouldn’t be forced to depend on methods they
 do not use.
 """
-
-from abc import ABC, abstractmethod
 
 
 # Bad practice

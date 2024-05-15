@@ -1,3 +1,6 @@
+from abc import ABC, abstractmethod
+
+
 """
 Open/Closed Principle
 
@@ -31,9 +34,6 @@ class Order:
 
 
 # Good practice
-from abc import ABC, abstractmethod
-
-
 class Shipping(ABC):
     @abstractmethod
     def get_cost(self) -> int:

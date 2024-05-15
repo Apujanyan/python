@@ -1,3 +1,6 @@
+from abc import ABC, abstractmethod
+
+
 """
 Dependency Inversion Principle
 
@@ -6,8 +9,6 @@ Both should depend on abstractions. Abstractions
 shouldn’t depend on details. Details should depend on
 abstractions.
 """
-
-from abc import ABC, abstractmethod
 
 
 # Bad practice
