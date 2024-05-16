@@ -11,90 +11,73 @@ developed independently of each other.
 """
 
 
-class Window(ABC):
+class DrawingAPI(ABC):
     @abstractmethod
-    def open(self) -> None:
-        ...
-
-    @abstractmethod
-    def close(self) -> None:
-        ...
-
-    @abstractmethod
-    def size_increase(self) -> None:
-        ...
-
-    @abstractmethod
-    def size_decrease(self) -> None:
-        ...
-
-    @abstractmethod
-    def is_opened(self) -> bool:
+    def draw_circle(
+            self,
+            x: float,
+            y: float,
+            radius: float
+    ) -> None:
         ...
 
 
-class WindowManager:
-    def __init__(self, window: Window) -> None:
-        self.window = window
-
-    def open(self) -> None:
-        self.window.open()
-
-    def close(self) -> None:
-        self.window.close()
-
-    def toggle(self) -> None:
-        if self.window.is_opened():
-            self.window.close()
-        else:
-            self.window.open()
-
-    def increase(self) -> None:
-        self.window.size_increase()
-
-    def decrease(self) -> None:
-        self.window.size_decrease()
+class DrawingAPI1(DrawingAPI):
+    def draw_circle(
+            self,
+            x: float,
+            y: float,
+            radius: float
+    ) -> None:
+        print(f'API1 drawing circle at ({x}, {y}) with radius {radius}. ')
 
 
-class UnixWindow(Window):
-    __counter = 0
+class DrawingAPI2(DrawingAPI):
+    def draw_circle(
+            self,
+            x: float,
+            y: float,
+            radius: float
+    ) -> None:
+        print(f'API2 drawing circle at ({x}, {y}) with radius {radius}. ')
 
-    def __init__(self, name: str) -> None:
-        self.name = name
-        self.size = 100
 
-    def open(self) -> None:
-        print(f'{self.name} is opened!')
-        self.__counter += 1
+class Shape(ABC):
+    def __init__(
+            self,
+            drawing_api: DrawingAPI
+    ) -> None:
+        self.drawing_api = drawing_api
 
-    def close(self) -> None:
-        print(f'{self.name} is closed!')
-        self.__counter += 1
+    @abstractmethod
+    def draw(self):
+        ...
 
-    def size_increase(self) -> None:
-        self.size += 10
-        print(f'{self.name}\'s size is {self.size}!')
 
-    def size_decrease(self) -> None:
-        self.size -= 10
-        print(f'{self.name}\'s size is {self.size}!')
+class Circle(Shape):
+    def __init__(
+            self,
+            drawing_api: DrawingAPI,
+            x: float,
+            y: float,
+            radius: float
+    ) -> None:
+        super().__init__(drawing_api)
+        self.x = x
+        self.y = y
+        self.radius = radius
 
-    def is_opened(self) -> bool:
-        if self.__counter % 2 == 1:
-            return True
-        return False
+    def draw(self):
+        self.drawing_api.draw_circle(self.x, self.y, self.radius)
 
 
 def main() -> None:
-    vim = UnixWindow('VIM')
-    manager = WindowManager(vim)
+    shape1 = Circle(DrawingAPI1(), 1, 2, 5)
+    shape2 = Circle(DrawingAPI2(), 4, 5, 90)
 
-    manager.open()
-    manager.toggle()
-    manager.increase()
-    manager.toggle()
+    shape1.draw()
+    shape2.draw()
 
 
 if __name__ == '__main__':
     main()
-
