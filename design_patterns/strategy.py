@@ -1,7 +1,3 @@
-from abc import ABC, abstractmethod
-from typing import Iterable, Union
-
-
 """
 Strategy
 
@@ -9,6 +5,10 @@ Strategy is a behavioral design pattern that lets you define a
 family of algorithms, put each of them into a separate class,
 and make their objects interchangeable.
 """
+
+
+from abc import ABC, abstractmethod
+from typing import Iterable, Union
 
 
 class Sort(ABC):

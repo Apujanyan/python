@@ -1,6 +1,3 @@
-from abc import ABC, abstractmethod
-
-
 """
 Abstract Factory
 
@@ -8,6 +5,9 @@ Abstract Factory is a creational design pattern that lets you
 produce families of related objects without specifying their
 concrete classes.
 """
+
+
+from abc import ABC, abstractmethod
 
 
 class Shoes(ABC):
